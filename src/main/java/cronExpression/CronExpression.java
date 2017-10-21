@@ -23,12 +23,7 @@ public class CronExpression {
             return splitIntervalIntoIntegerList(minute, ",");
         }
         if (minute.contains("-")) {
-            List<Integer> rangeBoundaries = splitIntervalIntoIntegerList(minute,"-");
-
-            int startOfRange = rangeBoundaries.get(0);
-            int endOfRange = rangeBoundaries.get(1);
-
-            return Range.range(startOfRange, endOfRange);
+            return calculateRange(minute);
         }
         if(minute.contains("*/")) {
             int step = Integer.parseInt(minute.split("/")[1]);
@@ -55,7 +50,20 @@ public class CronExpression {
         if (hour.contains(",")) {
             return splitIntervalIntoIntegerList(hour, ",");
         }
+
+        if (hour.contains("-")) {
+            return calculateRange(hour);
+        }
         return Collections.singletonList(Integer.parseInt(hour));
+    }
+
+    private List<Integer> calculateRange(String hour) {
+        List<Integer> rangeBoundaries = splitIntervalIntoIntegerList(hour,"-");
+
+        int startOfRange = rangeBoundaries.get(0);
+        int endOfRange = rangeBoundaries.get(1);
+
+        return Range.range(startOfRange, endOfRange);
     }
 
     private List<Integer> splitIntervalIntoIntegerList(String minute, String delimiter) {

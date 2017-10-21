@@ -79,6 +79,15 @@ public class CronExpressionTest {
     }
 
     @Test
+    public void parsesHourFieldsToListWithRangeFromOneToSeven() throws Exception {
+        CronExpression cronExpression = new CronExpression("0", "1-7");
+
+        List<Integer> hours = cronExpression.getHour();
+        assertThat(hours.size(), is(7));
+        assertThat(hours, hasItems(1, 2, 3, 4, 5, 6, 7));
+    }
+
+    @Test
     public void parsesHourFieldsThatHappenAt2And5An7HoursToHoursList() throws Exception {
         CronExpression cronExpression = new CronExpression("0", "2,5,7");
 
@@ -86,6 +95,4 @@ public class CronExpressionTest {
         assertThat(hours.size(), is(3));
         assertThat(hours, hasItems(2, 5, 7));
     }
-
-
 }
