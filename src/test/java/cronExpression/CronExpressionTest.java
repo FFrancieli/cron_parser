@@ -14,7 +14,7 @@ public class CronExpressionTest {
 
     @Test
     public void returnsListWithMinutesWhenMinutesFieldIsNumericOnCronExpression() throws Exception {
-        CronExpression cronExpression = new CronExpression("20");
+        CronExpression cronExpression = new CronExpression("20", "0");
 
         List<Integer> minutes = cronExpression.getMinute();
         assertThat(minutes.size(), is(1));
@@ -23,7 +23,7 @@ public class CronExpressionTest {
 
     @Test
     public void returnsListWithEveryNumberSeparatedByComaOnMinutesField() throws Exception {
-        CronExpression cronExpression = new CronExpression("1,5");
+        CronExpression cronExpression = new CronExpression("1,5", "0");
 
         List<Integer> minutes = cronExpression.getMinute();
         assertThat(minutes.size(), is(2));
@@ -32,7 +32,7 @@ public class CronExpressionTest {
 
     @Test
     public void returnsListWithRangeOfMinutesWhenMinuteFieldContainsDash() throws Exception {
-        CronExpression cronExpression = new CronExpression("1-5");
+        CronExpression cronExpression = new CronExpression("1-5", "0");
 
         List<Integer> minutes = cronExpression.getMinute();
         assertThat(minutes.size(), is(5));
@@ -41,7 +41,7 @@ public class CronExpressionTest {
 
     @Test
     public void parsesMinutesToListAtEveryFifteenMinutesExpressionStartingFromOne() throws Exception {
-        CronExpression cronExpression = new CronExpression("1/15");
+        CronExpression cronExpression = new CronExpression("1/15", "0");
 
         List<Integer> minute = cronExpression.getMinute();
         assertThat(minute.size(), is(4));
@@ -50,7 +50,7 @@ public class CronExpressionTest {
 
     @Test
     public void parsesMinutesToListAtEveryFifteenMinutesExpression() throws Exception {
-        CronExpression cronExpression = new CronExpression("*/15");
+        CronExpression cronExpression = new CronExpression("*/15", "0");
 
         List<Integer> minute = cronExpression.getMinute();
         assertThat(minute.size(), is(4));
@@ -59,7 +59,7 @@ public class CronExpressionTest {
 
     @Test
     public void returnsListWithAllNumberFrom0To59ForCronExpressionWithAsteriskOnly() throws Exception {
-        CronExpression cronExpression = new CronExpression("*");
+        CronExpression cronExpression = new CronExpression("*", "0");
 
         List<Integer> minutes = cronExpression.getMinute();
         List<Integer> everyMinute = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
@@ -67,5 +67,14 @@ public class CronExpressionTest {
                 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59);
 
         assertThat(minutes, is(everyMinute));
+    }
+
+    @Test
+    public void returnsListWithNumber4ForCronStartingOn3hous() throws Exception {
+        CronExpression cronExpression = new CronExpression("0", "3");
+
+        List<Integer> hours = cronExpression.getHour();
+        assertThat(hours.size(), is(1));
+        assertThat(hours, hasItem(3));
     }
 }

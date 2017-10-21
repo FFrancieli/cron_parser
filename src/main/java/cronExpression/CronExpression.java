@@ -11,9 +11,11 @@ public class CronExpression {
     private final int MAXIMUM_MINUTES = 59;
 
     private final List<Integer> minute;
+    private final List<Integer> hour;
 
-    public CronExpression(String minute) {
+    public CronExpression(String minute, String hour) {
         this.minute = parseToMinutesList(minute);
+        this.hour = parseToHoursList(hour);
     }
 
     private List<Integer> parseToMinutesList(String minute) {
@@ -49,6 +51,10 @@ public class CronExpression {
         return Collections.singletonList(Integer.parseInt(minute));
     }
 
+    private List<Integer> parseToHoursList(String hour) {
+        return Collections.singletonList(Integer.parseInt(hour));
+    }
+
     private List<Integer> splitIntervalIntoIntegerList(String minute, String delimiter) {
         return Arrays.stream(minute.split(delimiter))
                 .map(Integer::parseInt).collect(Collectors.toList());
@@ -56,5 +62,9 @@ public class CronExpression {
 
     public List<Integer> getMinute() {
         return minute;
+    }
+
+    public List<Integer> getHour() {
+        return hour;
     }
 }
