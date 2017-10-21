@@ -77,4 +77,15 @@ public class CronExpressionTest {
         assertThat(hours.size(), is(1));
         assertThat(hours, hasItem(3));
     }
+
+    @Test
+    public void parsesHourFieldsThatHappenAt2And5An7HoursToHoursList() throws Exception {
+        CronExpression cronExpression = new CronExpression("0", "2,5,7");
+
+        List<Integer> hours = cronExpression.getHour();
+        assertThat(hours.size(), is(3));
+        assertThat(hours, hasItems(2, 5, 7));
+    }
+
+
 }

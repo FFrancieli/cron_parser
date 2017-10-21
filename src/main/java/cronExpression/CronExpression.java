@@ -52,6 +52,9 @@ public class CronExpression {
     }
 
     private List<Integer> parseToHoursList(String hour) {
+        if (hour.contains(",")) {
+            return splitIntervalIntoIntegerList(hour, ",");
+        }
         return Collections.singletonList(Integer.parseInt(hour));
     }
 
