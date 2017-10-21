@@ -113,4 +113,15 @@ public class CronExpressionTest {
         assertThat(hours.size(), is(6));
         assertThat(hours, hasItems(0, 4, 8, 12, 16, 20));
     }
+
+    @Test
+    public void returnsListWithAllNumberFrom0To23ForHourCronExpressionWithAsteriskOnly() throws Exception {
+        CronExpression cronExpression = new CronExpression("0", "*");
+
+        List<Integer> hours = cronExpression.getHour();
+        List<Integer> everyHour = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+                20, 21, 22, 23);
+
+        assertThat(hours, is(everyHour));
+    }
 }

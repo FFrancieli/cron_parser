@@ -57,6 +57,9 @@ public class CronExpression {
         if (hour.contains("/")) {
             return calculateRange(hour, MAXIMUM_HOURS);
         }
+        if (hour.equals("*")) {
+            return Range.range(0, MAXIMUM_HOURS);
+        }
 
         return Collections.singletonList(Integer.parseInt(hour));
     }
