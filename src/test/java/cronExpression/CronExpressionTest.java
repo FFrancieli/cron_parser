@@ -95,4 +95,13 @@ public class CronExpressionTest {
         assertThat(hours.size(), is(3));
         assertThat(hours, hasItems(2, 5, 7));
     }
+
+    @Test
+    public void parsesHourFieldsScheduleForEvery12hoursStartingFromHourOne() throws Exception {
+        CronExpression cronExpression = new CronExpression("0", "1/12");
+
+        List<Integer> hours = cronExpression.getHour();
+        assertThat(hours.size(), is(2));
+        assertThat(hours, hasItems(1, 13));
+    }
 }

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 public class CronExpression {
     private final int MAXIMUM_MINUTES = 59;
+    private final int MAXIMUM_HOURS = 23;
 
     private final List<Integer> minute;
     private final List<Integer> hour;
@@ -31,12 +32,7 @@ public class CronExpression {
             return Range.range(0, 59, step);
         }
         if (minute.contains("/")) {
-            List<Integer> minutesInterval = splitIntervalIntoIntegerList(minute, "/");
-
-            Integer rangeStart = minutesInterval.get(0);
-            Integer rangeStep = minutesInterval.get(1);
-
-           return Range.range(rangeStart, MAXIMUM_MINUTES, rangeStep);
+            return calculateRange(minute, MAXIMUM_MINUTES);
         }
         if (minute.equals("*")) {
             return Range.range(0, MAXIMUM_MINUTES);
@@ -50,11 +46,23 @@ public class CronExpression {
         if (hour.contains(",")) {
             return splitIntervalIntoIntegerList(hour, ",");
         }
-
         if (hour.contains("-")) {
             return calculateRange(hour);
         }
+        if (hour.contains("/")) {
+            return calculateRange(hour, MAXIMUM_HOURS);
+        }
+
         return Collections.singletonList(Integer.parseInt(hour));
+    }
+
+    private List<Integer> calculateRange(String hour, int end) {
+        List<Integer> minutesInterval = splitIntervalIntoIntegerList(hour, "/");
+
+        Integer rangeStart = minutesInterval.get(0);
+        Integer rangeStep = minutesInterval.get(1);
+
+        return Range.range(rangeStart, end, rangeStep);
     }
 
     private List<Integer> calculateRange(String hour) {
