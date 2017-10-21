@@ -49,6 +49,11 @@ public class CronExpression {
         if (hour.contains("-")) {
             return calculateRange(hour);
         }
+        if(hour.contains("*/")) {
+            int step = Integer.parseInt(hour.split("/")[1]);
+
+            return Range.range(0, MAXIMUM_HOURS, step);
+        }
         if (hour.contains("/")) {
             return calculateRange(hour, MAXIMUM_HOURS);
         }

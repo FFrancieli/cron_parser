@@ -104,4 +104,13 @@ public class CronExpressionTest {
         assertThat(hours.size(), is(2));
         assertThat(hours, hasItems(1, 13));
     }
+
+    @Test
+    public void parsesMinutesToListAtEveryFourHoursExpression() throws Exception {
+        CronExpression cronExpression = new CronExpression("0", "*/4");
+
+        List<Integer> hours = cronExpression.getHour();
+        assertThat(hours.size(), is(6));
+        assertThat(hours, hasItems(0, 4, 8, 12, 16, 20));
+    }
 }
