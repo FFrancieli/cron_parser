@@ -12,9 +12,10 @@ public class CalculateRangeFromZeroToMaximumWithStepStrategyTest {
 
     @Test
     public void calculateRangeFromZeroToMaximumWith10AsStep() throws Exception {
-        CalculateRangeFromZeroToMaximumWithStepStrategy rangeStrategy = new CalculateRangeFromZeroToMaximumWithStepStrategy(50);
+        CalculateRangeFromZeroToMaximumWithStepStrategy rangeStrategy =
+                new CalculateRangeFromZeroToMaximumWithStepStrategy(50, "*/10");
 
-        List<Integer> range = rangeStrategy.parse("*/10");
+        List<Integer> range = rangeStrategy.parse();
 
         assertThat(range.size(), is(6));
         assertThat(range, hasItems(0, 10, 20, 30, 40, 50));

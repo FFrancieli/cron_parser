@@ -14,7 +14,7 @@ public class CalculateRangeFromZeroToMaximumStrategyTest {
     public void returnsRangeFromToFive() throws Exception {
         CalculateRangeFromZeroToMaximumStrategy zeroToMaximumStrategy = new CalculateRangeFromZeroToMaximumStrategy(5);
 
-        List<Integer> range = zeroToMaximumStrategy.parse("*");
+        List<Integer> range = zeroToMaximumStrategy.parse();
 
         assertThat(range.size(), is(6));
         assertThat(range, hasItems(0, 1, 2, 3, 4, 5));

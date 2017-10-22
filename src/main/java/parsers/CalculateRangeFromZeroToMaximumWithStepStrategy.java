@@ -5,15 +5,17 @@ import range.Range;
 import java.util.List;
 
 public class CalculateRangeFromZeroToMaximumWithStepStrategy implements Parser {
-    int endOfRange;
+    private final int endOfRange;
+    private final String fieldValue;
 
-    public CalculateRangeFromZeroToMaximumWithStepStrategy(int endOfRange) {
+    public CalculateRangeFromZeroToMaximumWithStepStrategy(int endOfRange, String fieldValue) {
         this.endOfRange = endOfRange;
+        this.fieldValue = fieldValue;
     }
 
     @Override
-    public List<Integer> parse(String value) {
-        int step = Integer.parseInt(value.split("/")[1]);
+    public List<Integer> parse() {
+        int step = Integer.parseInt(fieldValue.split("/")[1]);
 
         return Range.range(0, endOfRange, step);
     }

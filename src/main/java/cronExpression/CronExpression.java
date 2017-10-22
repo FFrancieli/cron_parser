@@ -32,7 +32,7 @@ public class CronExpression {
     private List<Integer> parseField(CronFieldParserFactory factory, String fieldValue) {
         Parser parser = factory.getStrategy(fieldValue);
 
-        return parser.parse(fieldValue);
+        return parser.parse();
     }
 
     public List<Integer> getMinute() {

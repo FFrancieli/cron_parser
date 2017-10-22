@@ -12,9 +12,9 @@ public class CalculateRangeWithStepStrategyTest {
 
     @Test
     public void returnsRangeFromOneToTwentyCountingThenByThen() throws Exception {
-        CalculateRangeWithStepStrategy calculateRangeWithStepStrategy = new CalculateRangeWithStepStrategy(20);
+        CalculateRangeWithStepStrategy calculateRangeWithStepStrategy = new CalculateRangeWithStepStrategy(20, "1/10");
 
-        List<Integer> range = calculateRangeWithStepStrategy.parse("1/10");
+        List<Integer> range = calculateRangeWithStepStrategy.parse();
 
         assertThat(range.size(), is(2));
         assertThat(range, hasItems(1, 11));

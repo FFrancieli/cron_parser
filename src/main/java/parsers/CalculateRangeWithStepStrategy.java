@@ -7,15 +7,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CalculateRangeWithStepStrategy implements Parser {
-    int endOfRange;
+    private final int endOfRange;
+    private final String fieldValue;
 
-    public CalculateRangeWithStepStrategy(int endOfRange) {
+    public CalculateRangeWithStepStrategy(int endOfRange, String fieldValue) {
         this.endOfRange = endOfRange;
+        this.fieldValue = fieldValue;
     }
 
     @Override
-    public List<Integer> parse(String value) {
-        List<Integer> rangeDelimiters = stringArrayToIntegerList(value.split("/"));
+    public List<Integer> parse() {
+        List<Integer> rangeDelimiters = stringArrayToIntegerList(fieldValue.split("/"));
 
         int start = rangeDelimiters.get(0);
         int step = rangeDelimiters.get(1);

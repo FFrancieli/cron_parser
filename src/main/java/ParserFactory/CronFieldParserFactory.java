@@ -11,21 +11,21 @@ public class CronFieldParserFactory {
 
     public Parser getStrategy(String fieldValue) {
         if (fieldValue.contains(",")) {
-            return new MultipleNumbersToListStrategy();
+            return new MultipleNumbersToListStrategy(fieldValue);
         }
         if (fieldValue.contains("-")) {
-            return new CalculateDelimitedRangeStrategy();
+            return new CalculateDelimitedRangeStrategy(fieldValue);
         }
         if(fieldValue.contains("*/")) {
-            return new CalculateRangeFromZeroToMaximumWithStepStrategy(maximumRangeValue);
+            return new CalculateRangeFromZeroToMaximumWithStepStrategy(maximumRangeValue, fieldValue);
         }
         if (fieldValue.contains("/")) {
-            return new CalculateRangeWithStepStrategy(maximumRangeValue);
+            return new CalculateRangeWithStepStrategy(maximumRangeValue, fieldValue);
         }
         if (fieldValue.equals("*")) {
             return new CalculateRangeFromZeroToMaximumStrategy(maximumRangeValue);
         }
 
-        return new NumberToListStrategy();
+        return new NumberToListStrategy(fieldValue);
     }
 }

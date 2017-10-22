@@ -8,9 +8,15 @@ import java.util.stream.Collectors;
 
 public class CalculateDelimitedRangeStrategy implements Parser {
 
+    private final String fieldValue;
+
+    public CalculateDelimitedRangeStrategy(String fieldValue) {
+        this.fieldValue = fieldValue;
+    }
+
     @Override
-    public List<Integer> parse(String value) {
-        List<Integer> rangeDelimiters = splitIntervalIntoIntegerList(value, "-");
+    public List<Integer> parse() {
+        List<Integer> rangeDelimiters = splitIntervalIntoIntegerList(fieldValue, "-");
 
         int start = rangeDelimiters.get(0);
         int end = rangeDelimiters.get(1);

@@ -12,9 +12,9 @@ public class CalculateDelimitedRangeStrategyTest {
 
     @Test
     public void returnsRangeFromOneToFive() throws Exception {
-        CalculateDelimitedRangeStrategy delimitedRangeStrategy = new CalculateDelimitedRangeStrategy();
+        CalculateDelimitedRangeStrategy delimitedRangeStrategy = new CalculateDelimitedRangeStrategy("1-5");
 
-        List<Integer> range = delimitedRangeStrategy.parse("1-5");
+        List<Integer> range = delimitedRangeStrategy.parse();
 
         assertThat(range.size(), is(5));
         assertThat(range, hasItems(1, 2, 3, 4, 5));
