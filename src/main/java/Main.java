@@ -1,15 +1,10 @@
 import cronExpression.CronExpression;
-
-import java.util.Scanner;
+import input.Input;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-
         System.out.println("Enter cron expression");
-        String cronStringExpression = input.nextLine();
-
-        input.close();
+        String cronStringExpression = new Input().readLineFromConsole();
 
         String[] cronFields = cronStringExpression.split(" ");
 
