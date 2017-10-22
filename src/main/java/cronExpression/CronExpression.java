@@ -84,4 +84,21 @@ public class CronExpression {
     public List<Integer> getDayOfWeek() {
         return dayOfWeek;
     }
+
+    @Override
+    public String toString() {
+        return  "minute        " + listToFormattedString(minute) + "\n" +
+                "hour          " + listToFormattedString(hour) + "\n" +
+                "day of month  " + listToFormattedString(dayOfMonth) + "\n" +
+                "month         " + listToFormattedString(month) + "\n" +
+                "day of week   " + listToFormattedString(dayOfWeek) + "\n" +
+                "command       " + command;
+    }
+
+    private String listToFormattedString(List<Integer> list) {
+        return list.toString()
+                .replace("[",  "")
+                .replace("]", "")
+                .replace(",", "");
+    }
 }
