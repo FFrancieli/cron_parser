@@ -29,25 +29,11 @@ public class CronExpression {
     }
 
     private List<Integer> parseToHoursList(String hour) {
-        if (hour.contains(",")) {
-            return splitIntervalIntoIntegerList(hour, ",");
-        }
-        if (hour.contains("-")) {
-            return calculateRange(hour);
-        }
-        if(hour.contains("*/")) {
-            int step = Integer.parseInt(hour.split("/")[1]);
+        CronFieldParserFactory fieldParserFactory = new CronFieldParserFactory(MAXIMUM_HOURS);
 
-            return Range.range(0, MAXIMUM_HOURS, step);
-        }
-        if (hour.contains("/")) {
-            return calculateRange(hour, MAXIMUM_HOURS);
-        }
-        if (hour.equals("*")) {
-            return Range.range(0, MAXIMUM_HOURS);
-        }
+        Parser parser = fieldParserFactory.getStrategy(hour);
 
-        return Collections.singletonList(Integer.parseInt(hour));
+        return parser.parse(hour);
     }
 
     private List<Integer> calculateRange(String hour, int end) {
