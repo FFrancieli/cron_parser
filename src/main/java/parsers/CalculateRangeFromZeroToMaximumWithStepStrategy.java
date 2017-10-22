@@ -16,13 +16,13 @@ public class CalculateRangeFromZeroToMaximumWithStepStrategy implements Parser {
 
     public CalculateRangeFromZeroToMaximumWithStepStrategy(int endOfRange, String fieldValue,  int rangeStart) {
         this(endOfRange, fieldValue);
-        rangeStart = rangeStart;
+        this.rangeStart = rangeStart;
     }
 
     @Override
     public List<Integer> parse() {
         int step = Integer.parseInt(fieldValue.split("/")[1]);
 
-        return Range.range(0, endOfRange, step);
+        return Range.range(rangeStart, endOfRange, step);
     }
 }

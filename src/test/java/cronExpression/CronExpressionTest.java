@@ -170,7 +170,7 @@ public class CronExpressionTest {
 
         List<Integer> daysOfMonth = cronExpression.getDayOfMonth();
         assertThat(daysOfMonth.size(), is(4));
-        assertThat(daysOfMonth, hasItems(0, 10, 20, 30));
+        assertThat(daysOfMonth, hasItems(1, 11, 21, 31));
     }
 
     @Test
@@ -225,8 +225,8 @@ public class CronExpressionTest {
         CronExpression cronExpression = new CronExpression(ZERO, ZERO, ZERO,"*/4", ZERO, COMMAND);
 
         List<Integer> months = cronExpression.getMonth();
-        assertThat(months.size(), is(4));
-        assertThat(months, hasItems(0, 4, 8, 12));
+        assertThat(months.size(), is(3));
+        assertThat(months, hasItems(1, 5, 9));
     }
 
     @Test
