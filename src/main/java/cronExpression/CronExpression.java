@@ -36,29 +36,6 @@ public class CronExpression {
         return parser.parse(hour);
     }
 
-    private List<Integer> calculateRange(String hour, int end) {
-        List<Integer> minutesInterval = splitIntervalIntoIntegerList(hour, "/");
-
-        Integer rangeStart = minutesInterval.get(0);
-        Integer rangeStep = minutesInterval.get(1);
-
-        return Range.range(rangeStart, end, rangeStep);
-    }
-
-    private List<Integer> calculateRange(String hour) {
-        List<Integer> rangeBoundaries = splitIntervalIntoIntegerList(hour,"-");
-
-        int startOfRange = rangeBoundaries.get(0);
-        int endOfRange = rangeBoundaries.get(1);
-
-        return Range.range(startOfRange, endOfRange);
-    }
-
-    private List<Integer> splitIntervalIntoIntegerList(String minute, String delimiter) {
-        return Arrays.stream(minute.split(delimiter))
-                .map(Integer::parseInt).collect(Collectors.toList());
-    }
-
     public List<Integer> getMinute() {
         return minute;
     }
