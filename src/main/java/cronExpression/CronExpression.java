@@ -17,7 +17,7 @@ public class CronExpression {
     public CronExpression(String minute, String hour, String dayOfMonth, String month, String dayOfWeek, String command) {
         this.minute = parseToMinutesList(minute);
         this.hour = parseToHoursList(hour);
-        this.dayOfMonth = parseToListOfDays(dayOfMonth);
+        this.dayOfMonth = parseToListOfDaysOfMonth(dayOfMonth);
     }
 
     private List<Integer> parseToMinutesList(String minute) {
@@ -32,7 +32,7 @@ public class CronExpression {
         return parseField(fieldParserFactory, hour);
     }
 
-    private List<Integer> parseToListOfDays(String daysOfMonth) {
+    private List<Integer> parseToListOfDaysOfMonth(String daysOfMonth) {
         CronFieldParserFactory fieldParserFactory = new CronFieldParserFactory(MAXIMUM_DAYS_OF_MONTH);
 
         return parseField(fieldParserFactory, daysOfMonth);
