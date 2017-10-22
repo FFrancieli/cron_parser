@@ -8,14 +8,16 @@ import java.util.List;
 public class CronExpression {
     private final int MAXIMUM_MINUTES = 59;
     private final int MAXIMUM_HOURS = 23;
-    private final int MAXUMUM_DAYS_OF_MONTH = 31;
+    private final int MAXIMUM_DAYS_OF_MONTH = 31;
 
     private final List<Integer> minute;
     private final List<Integer> hour;
+    private final List<Integer> dayOfMonth;
 
     public CronExpression(String minute, String hour, String dayOfMonth, String month, String dayOfWeek, String command) {
         this.minute = parseToMinutesList(minute);
         this.hour = parseToHoursList(hour);
+        this.dayOfMonth = parseToListOfDays(dayOfMonth);
     }
 
     private List<Integer> parseToMinutesList(String minute) {
@@ -30,6 +32,12 @@ public class CronExpression {
         return parseField(fieldParserFactory, hour);
     }
 
+    private List<Integer> parseToListOfDays(String daysOfMonth) {
+        CronFieldParserFactory fieldParserFactory = new CronFieldParserFactory(MAXIMUM_DAYS_OF_MONTH);
+
+        return parseField(fieldParserFactory, daysOfMonth);
+    }
+
     private List<Integer> parseField(CronFieldParserFactory factory, String fieldValue) {
         Parser parser = factory.getStrategy(fieldValue);
 
@@ -42,5 +50,9 @@ public class CronExpression {
 
     public List<Integer> getHour() {
         return hour;
+    }
+
+    public List<Integer> getDayOfMonth() {
+        return dayOfMonth;
     }
 }
