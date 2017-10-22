@@ -23,17 +23,20 @@ public class CronExpression {
 
     private List<Integer> parseToMinutesList(String minute) {
         CronFieldParserFactory fieldParserFactory = new CronFieldParserFactory(MAXIMUM_MINUTES);
-        Parser parser = fieldParserFactory.getStrategy(minute);
 
-        return parser.parse(minute);
+        return parseField(fieldParserFactory, minute);
     }
 
     private List<Integer> parseToHoursList(String hour) {
         CronFieldParserFactory fieldParserFactory = new CronFieldParserFactory(MAXIMUM_HOURS);
 
-        Parser parser = fieldParserFactory.getStrategy(hour);
+        return parseField(fieldParserFactory, hour);
+    }
 
-        return parser.parse(hour);
+    private List<Integer> parseField(CronFieldParserFactory factory, String fieldValue) {
+        Parser parser = factory.getStrategy(fieldValue);
+
+        return parser.parse(fieldValue);
     }
 
     public List<Integer> getMinute() {
