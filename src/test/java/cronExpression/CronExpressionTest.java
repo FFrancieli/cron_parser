@@ -238,4 +238,59 @@ public class CronExpressionTest {
 
         assertThat(months, is(everyMinute));
     }
+
+    @Test
+    public void returnsListOfDaysOfWeekWhenFieldIsNumericOnCronExpression() throws Exception {
+        CronExpression cronExpression = new CronExpression(ZERO, ZERO, ZERO, ZERO, "3", COMMAND);
+
+        List<Integer> dayOfWeek = cronExpression.getDayOfWeek();
+        assertThat(dayOfWeek.size(), is(1));
+        assertThat(dayOfWeek, hasItem(3));
+    }
+
+    @Test
+    public void returnsListWithEveryNumberSeparatedByComaFromDayOfWeekField() throws Exception {
+        CronExpression cronExpression = new CronExpression(ZERO, ZERO, ZERO, ZERO, "1,2,5", COMMAND);
+
+        List<Integer> daysOfWeek = cronExpression.getDayOfWeek();
+        assertThat(daysOfWeek.size(), is(3));
+        assertThat(daysOfWeek, hasItems(1, 2, 5));
+    }
+
+    @Test
+    public void returnsListWithRangeOfDaysOfWeekWhenFieldContainsDash() throws Exception {
+        CronExpression cronExpression = new CronExpression(ZERO, ZERO, ZERO, ZERO, "1-5", COMMAND);
+
+        List<Integer> daysOfWeek = cronExpression.getDayOfWeek();
+        assertThat(daysOfWeek.size(), is(5));
+        assertThat(daysOfWeek, hasItems(1, 2, 3, 4, 5));
+    }
+
+    @Test
+    public void returnsListOfDaysOfStartingOnDayOneCountingByTwoWhenFieldContainsSlash () throws Exception {
+        CronExpression cronExpression = new CronExpression(ZERO, ZERO, ZERO, ZERO, "1/2", COMMAND);
+
+        List<Integer> daysOfWeek = cronExpression.getDayOfWeek();
+        assertThat(daysOfWeek.size(), is(4));
+        assertThat(daysOfWeek, hasItems(1, 3, 5, 7));
+    }
+
+    @Test
+    public void returnsListOfDaysOfWeekStartingOnDayZeroCountingByTwoWhenFieldContainsAsteriskFollowedBySlash() throws Exception {
+        CronExpression cronExpression = new CronExpression(ZERO, ZERO, ZERO,ZERO, "*/2", COMMAND);
+
+        List<Integer> daysOfWeek = cronExpression.getDayOfWeek();
+        assertThat(daysOfWeek.size(), is(4));
+        assertThat(daysOfWeek, hasItems(0, 2, 4, 6));
+    }
+
+    @Test
+    public void returnsListWithAllDaysOfWeekWhenFieldOnCronExpressionContainsAsteriskOnly() throws Exception {
+        CronExpression cronExpression = new CronExpression(ZERO, ZERO, ZERO, ZERO, "*", COMMAND);
+
+        List<Integer> dayOfWeek = cronExpression.getDayOfWeek();
+        List<Integer> allDaysOfWeek = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7);
+
+        assertThat(dayOfWeek, is(allDaysOfWeek));
+    }
 }
