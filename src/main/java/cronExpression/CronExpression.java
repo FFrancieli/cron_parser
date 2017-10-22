@@ -11,6 +11,7 @@ public class CronExpression {
     private final int MAXIMUM_DAYS_OF_MONTH = 31;
     private final int MAXIMUM_MONTHS = 12;
     private final int MAXIMUM_DAYS_OF_WEEK = 7;
+    private final int MINIMUM_VALUE_FOR_MONTH = 1;
 
     private final List<Integer> minute;
     private final List<Integer> hour;
@@ -41,13 +42,13 @@ public class CronExpression {
     }
 
     private List<Integer> parseToListOfDaysOfMonth(String daysOfMonth) {
-        CronFieldParserFactory fieldParserFactory = new CronFieldParserFactory(MAXIMUM_DAYS_OF_MONTH);
+        CronFieldParserFactory fieldParserFactory = new CronFieldParserFactory(MAXIMUM_DAYS_OF_MONTH, MINIMUM_VALUE_FOR_MONTH);
 
         return parseField(fieldParserFactory, daysOfMonth);
     }
 
     private List<Integer> parseToListOfMonths(String month) {
-        CronFieldParserFactory fieldParserFactory = new CronFieldParserFactory(MAXIMUM_MONTHS);
+        CronFieldParserFactory fieldParserFactory = new CronFieldParserFactory(MAXIMUM_MONTHS, MINIMUM_VALUE_FOR_MONTH);
 
         return parseField(fieldParserFactory, month);
     }

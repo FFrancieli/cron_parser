@@ -56,6 +56,6 @@ public class CronFieldParserFactoryTest {
     public void returnsCalculateRangeFromZeroToMaximumWhenRangeContainsOnlyAsteriskSymbol() throws Exception {
         Parser parser = parserFactory.getStrategy("*");
 
-        assertThat(parser, is(instanceOf(CalculateRangeFromZeroToMaximumStrategy.class)));
+        assertThat(parser, is(instanceOf(CalculateRangeUpToMaximumStrategy.class)));
     }
 }

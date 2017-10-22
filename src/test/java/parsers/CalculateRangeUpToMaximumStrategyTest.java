@@ -8,11 +8,11 @@ import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
-public class CalculateRangeFromZeroToMaximumStrategyTest {
+public class CalculateRangeUpToMaximumStrategyTest {
 
     @Test
     public void returnsRangeFromToFive() throws Exception {
-        CalculateRangeFromZeroToMaximumStrategy zeroToMaximumStrategy = new CalculateRangeFromZeroToMaximumStrategy(5);
+        CalculateRangeUpToMaximumStrategy zeroToMaximumStrategy = new CalculateRangeUpToMaximumStrategy(5, 0);
 
         List<Integer> range = zeroToMaximumStrategy.parse();
 
