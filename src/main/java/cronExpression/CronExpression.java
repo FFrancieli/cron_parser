@@ -1,5 +1,7 @@
 package cronExpression;
 
+import ParserFactory.CronFieldParserFactory;
+import parsers.Parser;
 import range.Range;
 
 import java.util.Arrays;
@@ -20,26 +22,10 @@ public class CronExpression {
     }
 
     private List<Integer> parseToMinutesList(String minute) {
-        if (minute.contains(",")) {
-            return splitIntervalIntoIntegerList(minute, ",");
-        }
-        if (minute.contains("-")) {
-            return calculateRange(minute);
-        }
-        if(minute.contains("*/")) {
-            int step = Integer.parseInt(minute.split("/")[1]);
+        CronFieldParserFactory fieldParserFactory = new CronFieldParserFactory(MAXIMUM_MINUTES);
+        Parser parser = fieldParserFactory.getStrategy(minute);
 
-            return Range.range(0, 59, step);
-        }
-        if (minute.contains("/")) {
-            return calculateRange(minute, MAXIMUM_MINUTES);
-        }
-        if (minute.equals("*")) {
-            return Range.range(0, MAXIMUM_MINUTES);
-        }
-
-
-        return Collections.singletonList(Integer.parseInt(minute));
+        return parser.parse(minute);
     }
 
     private List<Integer> parseToHoursList(String hour) {
