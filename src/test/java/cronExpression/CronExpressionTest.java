@@ -183,4 +183,59 @@ public class CronExpressionTest {
 
         assertThat(daysOfMonth, is(everyMinute));
     }
+
+    @Test
+    public void returnsListWithMonthWhenFieldIsNumericOnCronExpression() throws Exception {
+        CronExpression cronExpression = new CronExpression(ZERO, ZERO, ZERO, "1", ZERO, COMMAND);
+
+        List<Integer> month = cronExpression.getMonth();
+        assertThat(month.size(), is(1));
+        assertThat(month, hasItem(1));
+    }
+
+    @Test
+    public void returnsListWithEveryNumberSeparatedByComaMonthField() throws Exception {
+        CronExpression cronExpression = new CronExpression(ZERO, ZERO, ZERO, "10,12", ZERO, COMMAND);
+
+        List<Integer> months = cronExpression.getMonth();
+        assertThat(months.size(), is(2));
+        assertThat(months, hasItems(10, 12));
+    }
+
+    @Test
+    public void returnsListWithRangeMonthsWhenFieldContainsDash() throws Exception {
+        CronExpression cronExpression = new CronExpression(ZERO, ZERO, ZERO, "6-9", ZERO, COMMAND);
+
+        List<Integer> months = cronExpression.getMonth();
+        assertThat(months.size(), is(4));
+        assertThat(months, hasItems(6, 7, 8, 9));
+    }
+
+    @Test
+    public void returnsListOfMonthsStartingOnMonthOneCountingByFourWhenFieldContainsSlash () throws Exception {
+        CronExpression cronExpression = new CronExpression(ZERO, ZERO, ZERO, "1/4", ZERO, COMMAND);
+
+        List<Integer> months = cronExpression.getMonth();
+        assertThat(months.size(), is(3));
+        assertThat(months, hasItems(1, 5, 9));
+    }
+
+    @Test
+    public void returnsListOfMonthsStartingOnDayZeroCountingByTenWhenFieldContainsAsteriskFollowedBySlash() throws Exception {
+        CronExpression cronExpression = new CronExpression(ZERO, ZERO, ZERO,"*/4", ZERO, COMMAND);
+
+        List<Integer> months = cronExpression.getMonth();
+        assertThat(months.size(), is(4));
+        assertThat(months, hasItems(0, 4, 8, 12));
+    }
+
+    @Test
+    public void returnsListWithAllMonthsWhenFieldOnCronExpressionContainsAsteriskOnly() throws Exception {
+        CronExpression cronExpression = new CronExpression(ZERO, ZERO, ZERO, "*", ZERO, COMMAND);
+
+        List<Integer> months = cronExpression.getMonth();
+        List<Integer> everyMinute = Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+
+        assertThat(months, is(everyMinute));
+    }
 }

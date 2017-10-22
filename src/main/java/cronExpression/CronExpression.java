@@ -9,15 +9,18 @@ public class CronExpression {
     private final int MAXIMUM_MINUTES = 59;
     private final int MAXIMUM_HOURS = 23;
     private final int MAXIMUM_DAYS_OF_MONTH = 31;
+    private final int MAXIMUM_MONTHS = 12;
 
     private final List<Integer> minute;
     private final List<Integer> hour;
     private final List<Integer> dayOfMonth;
+    private final List<Integer> month;
 
     public CronExpression(String minute, String hour, String dayOfMonth, String month, String dayOfWeek, String command) {
         this.minute = parseToMinutesList(minute);
         this.hour = parseToHoursList(hour);
         this.dayOfMonth = parseToListOfDaysOfMonth(dayOfMonth);
+        this.month = parseToListOfMonths(month);
     }
 
     private List<Integer> parseToMinutesList(String minute) {
@@ -38,6 +41,12 @@ public class CronExpression {
         return parseField(fieldParserFactory, daysOfMonth);
     }
 
+    private List<Integer> parseToListOfMonths(String month) {
+        CronFieldParserFactory fieldParserFactory = new CronFieldParserFactory(MAXIMUM_MONTHS);
+
+        return parseField(fieldParserFactory, month);
+    }
+
     private List<Integer> parseField(CronFieldParserFactory factory, String fieldValue) {
         Parser parser = factory.getStrategy(fieldValue);
 
@@ -54,5 +63,9 @@ public class CronExpression {
 
     public List<Integer> getDayOfMonth() {
         return dayOfMonth;
+    }
+
+    public List<Integer> getMonth() {
+        return month;
     }
 }
