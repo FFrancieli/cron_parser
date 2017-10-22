@@ -2,12 +2,8 @@ package cronExpression;
 
 import ParserFactory.CronFieldParserFactory;
 import parsers.Parser;
-import range.Range;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CronExpression {
     private final int MAXIMUM_MINUTES = 59;
