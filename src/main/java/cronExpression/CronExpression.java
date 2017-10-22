@@ -17,6 +17,7 @@ public class CronExpression {
     private final List<Integer> dayOfMonth;
     private final List<Integer> month;
     private final List<Integer> dayOfWeek;
+    private final String command;
 
     public CronExpression(String minute, String hour, String dayOfMonth, String month, String dayOfWeek, String command) {
         this.minute = parseToMinutesList(minute);
@@ -24,6 +25,7 @@ public class CronExpression {
         this.dayOfMonth = parseToListOfDaysOfMonth(dayOfMonth);
         this.month = parseToListOfMonths(month);
         this.dayOfWeek = parseToListOfDaysOfWeek(dayOfWeek);
+        this.command = command;
     }
 
     private List<Integer> parseToMinutesList(String minute) {
